@@ -1,0 +1,154 @@
+version: '3.6'
+services:
+    taynguyen-rawdata1:
+        image: ngovanmanh/aws-data-taynguyen:2.0.0     
+        environment:
+            - AWS_CONFIG=/home/config/config_pro_kttv1.ini
+            - AWS_ENV=pro
+        deploy:
+            restart_policy:
+                condition: on-failure
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==kttv1
+        volumes:
+            - aws_raw_data:/home/data
+            - aws_raw_data_error:/home/data_error
+            - aws_raw_log:/home/log
+            - aws_raw_config:/home/config
+            - aws_raw_timming:/home/timming
+            - aws_raw_certification:/home/certification
+            - aws_raw_file:/home/files
+        networks:
+            - aws_system_network
+    
+    taynguyen-rawdata2:     
+        image: ngovanmanh/aws-data-taynguyen:2.0.0            
+        environment:
+            - AWS_CONFIG=/home/config/config_pro_kttv2.ini
+            - AWS_ENV=pro
+        deploy:
+            restart_policy:
+                condition: on-failure
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==kttv1
+        volumes:
+            - aws_raw_data:/home/data
+            - aws_raw_data_error:/home/data_error
+            - aws_raw_log:/home/log
+            - aws_raw_config:/home/config
+            - aws_raw_timming:/home/timming
+            - aws_raw_certification:/home/certification
+            - aws_raw_file:/home/files
+        networks: 
+            - aws_system_network
+    
+    taynguyen-rawdata3:     
+        image: ngovanmanh/aws-data-taynguyen:2.0.0        
+        environment:
+            - AWS_CONFIG=/home/config/config_pro_kttv3.ini
+            - AWS_ENV=pro
+        deploy:
+            restart_policy:
+                condition: on-failure
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==kttv2
+        volumes:
+            - aws_raw_data:/home/data
+            - aws_raw_data_error:/home/data_error
+            - aws_raw_log:/home/log
+            - aws_raw_config:/home/config
+            - aws_raw_timming:/home/timming
+            - aws_raw_certification:/home/certification
+            - aws_raw_file:/home/files
+        networks: 
+            - aws_system_network
+            
+    taynguyen-rawdata4:     
+        image: ngovanmanh/aws-data-taynguyen:2.0.0        
+        environment:
+            - AWS_CONFIG=/home/config/config_pro_kttv4.ini
+            - AWS_ENV=pro
+        deploy:
+            restart_policy:
+                condition: on-failure
+            replicas: 1
+            placement:
+                constraints:
+                    - node.hostname==kttv2
+        volumes:
+            - aws_raw_data:/home/data
+            - aws_raw_data_error:/home/data_error
+            - aws_raw_log:/home/log
+            - aws_raw_config:/home/config
+            - aws_raw_timming:/home/timming
+            - aws_raw_certification:/home/certification
+            - aws_raw_file:/home/files
+        networks: 
+            - aws_system_network
+
+volumes:
+  aws_raw_data:
+    driver: local 
+    name: aws_raw_data
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/data" 
+    #external: true  
+  aws_raw_file:
+    driver: local 
+    name: aws_raw_file
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/files" 
+  aws_raw_data_error:
+    driver: local 
+    name: aws_raw_data_error
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/data_error"
+    #external: true
+  aws_raw_log:
+    driver: local 
+    name: aws_raw_log
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/log"
+    #external: true
+  aws_raw_config:
+    driver: local 
+    name: aws_raw_config
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/config"
+    #external: true
+  aws_raw_timming:
+    driver: local 
+    name: aws_raw_timming
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/timming"
+    #external: true
+  aws_raw_certification:
+    driver: local 
+    name: aws_raw_certification
+    driver_opts:
+        type: none
+        o: bind
+        device: "/opt/aws/raw/certification"
+    #external: true
+
+networks: 
+  aws_system_network:
+    external: true

@@ -1,0 +1,6 @@
+Request minimized Json:
+{"sID":"1234","RT":"T_REQ"}
+Response minized JSON:
+{"sID":"1234","RT":"T_RES","T":{"H":18,"M":30,"S":45},"D":{"D":20,"M":12,"Y":19}}
+Data format sent to Server in Json:
+{"sID":"1234","DT":"2019-08-12T17:32:10","tp":30.5,"rn_10":20.0,"rn_60":100.0,"bt":80}

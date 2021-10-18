@@ -1,0 +1,16 @@
+{
+	"logicalInterfaceId": "5846ed076522050001db0e12",
+	"notificationStrategy": "on-state-change",
+	"timestamp": "2016-09-16 17:32:10Z",
+	"updated": "2016-09-16 15:26:12Z",
+	"propertyMappings": {
+		"tempevt": {
+			"temperature": 20,
+			"totalTemperure": 20
+		},
+		"bateryevt": {
+			"status": 1,
+			"volum": 4
+		}
+	}
+}
