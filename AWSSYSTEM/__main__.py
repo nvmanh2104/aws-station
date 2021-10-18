@@ -39,6 +39,9 @@ def process_station_event(msg):
     m.update(byte_array)
     
     pass_word = m.hexdigest()
+    # update database
+    data = {'username': station_id, 'password': pass_word, 'is_superuser': False, 'salt': ''}
+    datadriver.insert_user_password(data)
    
 #test
 msg = {}
@@ -57,27 +60,12 @@ def insert_database():
         
         message = aws_utils.decode_payload(msg.payload)        
         if message is None:
-            error_handler(msg.payload)
-            message = aws_utils.decode_error_payload(msg.payload)
-            if message is None:
-                continue 
-        try:
-            # check if request timming syc
-            if message.__contains__("RT"):
-                timming = aws_utils.get_respone_time_server(message["sID"])                
-                aws_client.publish(aws_client.sendtopic, timming)
-                write_reponse_timming_to_file(timming)
-                continue
-            #check and set correct the minute of datetime
-            message = aws_utils.correct_time(message)
-            #
-            if message.__contains__("ss"):
-                if message['ss'] == 99:
-                    process_waterlevel(message)
-            else:
-                # process default rain data
-                process_rain(message)            
-
+            continue 
+        try:           
+            if message.__contains__("event_type"):
+                if message['event_type'] == STATION_CREATED:
+                    process_station_event(message)
+                    
         except Exception as e:           
             print (e)
 
