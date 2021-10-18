@@ -14,15 +14,8 @@ class mongodriver (object):
         self.hdlr = logging.FileHandler(logfile)
         self.log.addHandler(self.hdlr)
 
-        env = aws_utils.get_environment("AWS_ENV","dev")
-        if env == "dev":
-            #mongodriver.mongoclient = MongoClient(uri, username=user_name, password=password, authMechanism='SCRAM-SHA-1')
-            mongodriver.mongoclient = MongoClient(uri, replicaSet=replicaSet, username=user_name, password=password, authMechanism='SCRAM-SHA-1')
-        else:
-            #mongodriver.mongoclient = MongoClient(uri, replicaSet=replicaSet, tls=tls, tlsCAFile=tlsCAFile, tlsCertificateKeyFile=tlsCertificateKeyFile, tlsAllowInvalidCertificates=True)
-            mongodriver.mongoclient = MongoClient(uri, replicaSet=replicaSet, username=user_name, password=password, authMechanism='SCRAM-SHA-1')
-        
-        mongodriver.database = mongodriver.mongoclient[database_name]#mongodriver.mongoclient.VNMHAAWS        
+        mongodriver.mongoclient = MongoClient(uri, replicaSet=replicaSet, username=user_name, password=password, authMechanism='SCRAM-SHA-1')
+        mongodriver.database = mongodriver.mongoclient[database_name]
        
     def check_status (self):
         stt = mongodriver.database.command('serverStatus')
