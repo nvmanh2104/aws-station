@@ -128,7 +128,7 @@ class AwsMqttClient (object):
         print("EmqttAWS Connected %s" % self.EmqttAWSName)
         if rc == 0:
             self.EmqttAWS_connected = True
-            self.client.subscribe(self.gettopic, 1)
+            self.client.subscribe(self.gettopic, 2)
         else:
             print ("EmqttAWS Connected with result code " + str(rc))
             print ("Please make sure your blid and password are "
