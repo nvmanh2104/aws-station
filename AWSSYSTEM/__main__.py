@@ -42,17 +42,10 @@ def process_station_event(msg):
     # update database
     data = {'username': station_id, 'password': pass_word, 'is_superuser': False, 'salt': ''}
     datadriver.insert_user_password(data)
-   
-#test
-msg = {}
-msg['new_entity'] = {'StationID':'aws123123'}
-process_station_event(msg)
-#
+
 def insert_database():
     while True:
-        msg = message_queue.get()
-        #print( "topic:%s, qos:%s, dup:%s, retain:%s, message:%s"%(msg.topic, str(msg.qos), str(msg.dup), str(msg.retain), msg.payload))        
-        #write data to log       
+        msg = message_queue.get()            
 
         dup = msg.dup        
         if dup:
@@ -65,7 +58,7 @@ def insert_database():
             if message.__contains__("event_type"):
                 if message['event_type'] == STATION_CREATED:
                     process_station_event(message)
-                    
+
         except Exception as e:           
             print (e)
 
@@ -85,7 +78,7 @@ aws_client = aws_mqtt_client.AwsMqttClient(config.ADDRESSS, config.PORT, config.
 aws_client.message_event += message_handler
 aws_client.connect()
 
-datadriver = mongodriver.mongodriver(uri=config.DATABASE_IP, database_name=config.DATABASE_NAME, user_name=config.DATABASE_USER, password=config.DATABASE_PASS, logfile = config.LOG_FILE)
+datadriver = mongodriver.mongodriver(uri=config.DATABASE_IP, database_name=config.DATABASE_NAME, replicaSet=config.DATABASE_REPLICASET, user_name=config.DATABASE_USER, password=config.DATABASE_PASS, logfile = config.LOG_FILE)
 #Start thread
 thread_insert_database = threading.Thread(target=insert_database)
 thread_insert_database.start()

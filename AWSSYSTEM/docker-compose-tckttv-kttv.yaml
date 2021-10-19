@@ -1,9 +1,9 @@
 version: '3.6'
 services:
-    tckttv-rawdata1:
-        image: ngovanmanh/aws-tckttv-data:3.0.0   
+    tckttv-station1:
+        image: ngovanmanh/aws-tckttv-station:3.0.0   
         environment:
-            - AWS_CONFIG=/home/config/config_tckttv_pro_kttv1.ini
+            - AWS_CONFIG=/home/config/config_tckttv_station_kttv1.ini
             - AWS_ENV=pro
         deploy:
             restart_policy:
@@ -23,10 +23,10 @@ services:
         networks:
             - aws_system_network
     
-    tckttv-rawdata2:     
-        image: ngovanmanh/aws-tckttv-data:3.0.0          
+    tckttv-station2:     
+        image: ngovanmanh/aws-tckttv-station:3.0.0          
         environment:
-            - AWS_CONFIG=/home/config/config_tckttv_pro_kttv2.ini
+            - AWS_CONFIG=/home/config/config_tckttv_station_kttv2.ini
             - AWS_ENV=pro
         deploy:
             restart_policy:
@@ -34,7 +34,7 @@ services:
             replicas: 1
             placement:
                 constraints:
-                    - node.hostname==kttv1
+                    - node.hostname==kttv2
         volumes:
             - aws_raw_data:/home/data
             - aws_raw_data_error:/home/data_error
@@ -46,52 +46,6 @@ services:
         networks: 
             - aws_system_network
     
-    tckttv-rawdata3:     
-        image: ngovanmanh/aws-tckttv-data:3.0.0      
-        environment:
-            - AWS_CONFIG=/home/config/config_tckttv_pro_kttv3.ini
-            - AWS_ENV=pro
-        deploy:
-            restart_policy:
-                condition: on-failure
-            replicas: 1
-            placement:
-                constraints:
-                    - node.hostname==kttv2
-        volumes:
-            - aws_raw_data:/home/data
-            - aws_raw_data_error:/home/data_error
-            - aws_raw_log:/home/log
-            - aws_raw_config:/home/config
-            - aws_raw_timming:/home/timming
-            - aws_raw_certification:/home/certification
-            - aws_raw_file:/home/files
-        networks: 
-            - aws_system_network
-            
-    tckttv-rawdata4:     
-        image: ngovanmanh/aws-tckttv-data:3.0.0       
-        environment:
-            - AWS_CONFIG=/home/config/config_tckttv_pro_kttv4.ini
-            - AWS_ENV=pro
-        deploy:
-            restart_policy:
-                condition: on-failure
-            replicas: 1
-            placement:
-                constraints:
-                    - node.hostname==kttv2
-        volumes:
-            - aws_raw_data:/home/data
-            - aws_raw_data_error:/home/data_error
-            - aws_raw_log:/home/log
-            - aws_raw_config:/home/config
-            - aws_raw_timming:/home/timming
-            - aws_raw_certification:/home/certification
-            - aws_raw_file:/home/files
-        networks: 
-            - aws_system_network
-
 volumes:
   aws_raw_data:
     driver: local 
