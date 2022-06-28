@@ -47,7 +47,7 @@ class AwsMqttClient (object):
         self.blid = blid
         self.password = password
         self.EmqttAWSName = EmqttAWSName
-        self.gettopic = gettopic
+        self.gettopic = gettopic        
         self.sendtopic = sendtopic
         self.mqttc = None
         self.exclude = ""
