@@ -78,6 +78,10 @@ aws_client = aws_mqtt_client.AwsMqttClient(config.ADDRESSS, config.PORT, config.
 aws_client.message_event += message_handler
 aws_client.connect()
 
+aws_client_backup = aws_mqtt_client.AwsMqttClient(config.ADDRESSS_BACKUP, config.PORT_BACKUP, config.USERNAME_BACKUP, config.PASSWORD_BACKUP ,config.SENDTOPIC,config.STATIONTOPIC_BACKUP,True,False,"",config.AWSNAME_BACKUP,config.LOG_FILE,"./config.ini")
+aws_client_backup.message_event += message_handler
+aws_client_backup.connect()
+
 datadriver = mongodriver.mongodriver(uri=config.DATABASE_IP, database_name=config.DATABASE_NAME, replicaSet=config.DATABASE_REPLICASET, user_name=config.DATABASE_USER, password=config.DATABASE_PASS, logfile = config.LOG_FILE)
 #Start thread
 thread_insert_database = threading.Thread(target=insert_database)

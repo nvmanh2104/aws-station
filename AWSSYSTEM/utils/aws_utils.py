@@ -220,6 +220,14 @@ class config (object):
         config.USERNAME = conf.get("Emqtt", "USERNAME")
         config.PASSWORD = conf.get("Emqtt", "PASSWORD")
         
+        #emqtt backup
+        config.ADDRESSS_BACKUP = conf.get("Emqtt_Backup","ADDRESSS")
+        config.AWSNAME_BACKUP = conf.get("Emqtt_Backup","AWSNAME")
+        config.PORT_BACKUP = int(conf.get("Emqtt_Backup", "PORT"))
+        config.STATIONTOPIC_BACKUP = conf.get("Emqtt_Backup", "STATIONTOPIC")
+        config.USERNAME_BACKUP = conf.get("Emqtt_Backup", "USERNAME")
+        config.PASSWORD_BACKUP = conf.get("Emqtt_Backup", "PASSWORD")
+        
         config.DATABASE_IP = conf.get("Database", "DATABASE_IP")       
         config.DATABASE_NAME = conf.get("Database", "DATABASE_NAME")
         config.DATABASE_USER = conf.get("Database", "DATABASE_USER")
