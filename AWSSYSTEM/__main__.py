@@ -19,6 +19,7 @@ except ImportError:
     import Queue as queue
 
 STATION_CREATED = 'station_created'
+STATION_UPDATED = 'station_updated'
 
 def message_handler(sender, msg):
     # write data into queue 
@@ -56,7 +57,7 @@ def insert_database():
             continue 
         try:           
             if message.__contains__("event_type"):
-                if message['event_type'] == STATION_CREATED:
+                if message['event_type'] == STATION_CREATED or message['event_type'] == STATION_UPDATED:
                     process_station_event(message)
 
         except Exception as e:           
