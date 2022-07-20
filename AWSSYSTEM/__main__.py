@@ -57,7 +57,7 @@ def insert_database():
             continue 
         try:           
             if message.__contains__("event_type"):
-                if message['event_type'] == STATION_CREATED or message['event_type'] == STATION_UPDATED:
+                if message['event_type'] == STATION_CREATED:
                     process_station_event(message)
 
         except Exception as e:           
